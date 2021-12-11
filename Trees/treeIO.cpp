@@ -32,6 +32,29 @@ void printTree(TreeNode <int>* root)
   }
 }
 
-// level wise printing
-
+// level wise taking input using queues
+TreeNode <int>* takeInputLevel(){
+  int rootData;
+  cout<<"Enter root data; ";
+  cin>>rootData;
+  TreeNode <int>* root = new TreeNode<int>(rootData);
+  queue<TreeNode<int>*> pendingNodes;
+  pendingNodes.push(root);
+  
+  while(!pendingNodes.empty()){
+    int numChild;
+    TreeNode <int>* front = pendingNodes.front();
+    pendingNodes.pop(); // removing the node whose children are taken
+    cout<<"Enter number of children of "<< front->data;
+    cin>>numChild;
+    for(int i=0; i<numChild; i++){
+      int childData;
+      cout<<"Enter the child data: ";
+      cin>>childData;
+      TreeNode <int>* child = new TreeNode<int>(childData);
+      front->children.push_back(child);
+      pendingNodes.push(child);
+    }
+  }
+}
 
