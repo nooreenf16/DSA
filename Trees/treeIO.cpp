@@ -1,5 +1,5 @@
 // recursive input function
-TrreNode<int>* takeInput(){
+TreeNode<int>* takeInput(){
   int rootData, n;
   
   cout<<"Enter root data: ";
@@ -56,5 +56,26 @@ TreeNode <int>* takeInputLevel(){
       pendingNodes.push(child);
     }
   }
+  return root;
 }
 
+// level wise printing output using queues
+void printTreeLevel(TreeNode<int>* root){
+  if(root == NULL)
+    return;
+  queue<TreeNode<int>*> pending;
+  pending.push(root);
+  do{
+    TreeNode<int>* front = pending.front();
+    pending.pop();
+    cout<<front->data<<":";
+    for(int i=0; i < front->children.size(); i++){
+      cout<<front->children[i]->data;
+      pending.push(front->children[i]);
+      if(i+1 == front->children.size())
+        break;
+       cout<<",";
+    }
+    cout<<endl;
+  }while(!pending.empty());
+}
