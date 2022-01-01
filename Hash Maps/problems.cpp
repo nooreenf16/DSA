@@ -15,6 +15,7 @@ vector<int> removeDuplicates(int *a, int size){
   return output;
 }
 
+/*******************************************************************************************************/
 int highestFrequency(int arr[], int n){
   unordered_map<int,int> output;
   vector<int> iterate;
@@ -37,4 +38,23 @@ int highestFrequency(int arr[], int n){
   return ans;
 }
 
+/*******************************************************************************************************/
+void printIntersection(int arr1[], int arr2[], int n, int m) {
+   unordered_map<int, int> mp;
+    // Hashing the elements of the first array
+    for (int i = 0; i < n; i++)
+        mp[arr1[i]]++;
 
+    for (int j = 0; j < m; j++)
+    {
+        // Checking if the elements are present in the second array or not.
+        if (mp.count(arr2[j]) != 0)
+        {
+            cout<<arr2[j]<<endl;
+            mp[arr2[j]]--;
+            // Deleting the element if it's frequency is 0.
+            if (mp[arr2[j]] == 0) 
+                mp.erase(arr2[j]);
+        }
+    }
+}
