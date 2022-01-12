@@ -36,10 +36,22 @@ class ourmap{
     delete []buckets;
   }
   
+  int getValue(string key){
+    int bucketIndex = getIndex(string key);
+    mapNode<T>* head = buckt[bucketIndex];
+    while(head != NULL){
+      if(head->key == key)
+        return head->value;
+      head = head->next;
+    }
+    return 0;
+  }
+  
   int size(){
     return count;
   }
   
+  private:
   int getIndex(string key){
     int hashCode = 0;
     int currentCoeff = 1;
@@ -53,6 +65,7 @@ class ourmap{
     return hashCode % numBuckets;
   }
   
+  public:
   void insert(string key, T value){
     int bucketIndex = getIndex(string key);
     mapNode<T>* head = new bucket[bucketIndex];
@@ -70,6 +83,44 @@ class ourmap{
       bucket[bucketIndex] = node;
       count++;
     }
-}
+  }
+/*  
+  T remove(string key){
+    int bucketIndex = getIndex(string key);
+    mapNode<T>* head = new bucket[bucketIndex];
+    while(head != NULL){
+      if(head->next->key == key){
+        mapNode<T>* temp = head->next;
+        head->next = temp->next;
+      }
+      head = head->next;
+    }
+    return temp->value;
+  }
+  */
+  T remove(string key){
+    int bucketIndex = getIndex(string key);
+    mapNode<T>* head = buckt[bucketIndex];
+    mapNode<T>* prev = NULL;
+    
+    while(head != NULL){
+      if(head->key == key){
+        if(prev->key == NULL)
+          bucket[bucketIndex] = head->next;
+        else
+          prev->next = head->next;
+        T value = head->value;
+        head->next = NULL;
+        delete head;
+        count--;
+        return value;
+        
+      }
+      prev = head;
+      head = head->next;
+    }
+    return 0;
+  }
+  
         
         
