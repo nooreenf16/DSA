@@ -29,5 +29,33 @@
      insertWord(root, word);
    }
    
+   // helper for remove
+  void removeWord(TrieNode *root, string word){
+   if(word.size() == 0){
+    root->isTerminal = false;
+    return;
+   }
    
+   int index = word[0] - 'a';
+   TrieNode *child;
+   if(root->children[index] != NULL)
+    child = root->children[index];
+   else
+    return;
+   
+   removeWord(child, word.substr(1));
+   
+   // removing
+   if(child->isTerminal == false){
+    for(int i=0; i<26; i++){
+     if(child->children[i] != NULL)
+      return;
+    }
+    delete child;
+    root->children[index] = NULL;
+   }
+  }
+  void removeWord(string word){
+   removeWord(root, word);
+  }
  }
